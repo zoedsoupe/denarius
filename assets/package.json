@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "esbuild-sass-plugin": "^3.3.1",
+    "esbuild-wasm": "^0.25.0",
+    "sass-migrator": "^2.3.1",
+    "topbar": "^3.0.0"
+  }
+}

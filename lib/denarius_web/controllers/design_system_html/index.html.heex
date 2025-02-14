@@ -1,0 +1,132 @@
+<div class="flex flex-col p-4">
+  <!-- Color Tokens -->
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Color Tokens</h2>
+    <div class="flex flex-wrap gap-4">
+      <!-- Brand Colors -->
+      <div class="p-4 rounded-lg" style="background: var(--color-primary); color: white;">
+        Primary
+        <div class="text-sm">#9655FF</div>
+      </div>
+      <div class="p-4 rounded-lg" style="background: var(--color-secondary);">
+        Secondary
+        <div class="text-sm">#FEF5BC</div>
+      </div>
+      <div class="p-4 rounded-lg" style="background: var(--color-neutral);">
+        Neutral
+        <div class="text-sm">#F7F7FF</div>
+      </div>
+      <div class="p-4 rounded-lg" style="background: var(--color-dark); color: white;">
+        Dark
+        <div class="text-sm">#000A0F</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typography -->
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Typography</h2>
+    <div class="flex flex-col gap-4">
+      <div class="text-2xl">2XL Text (1.5rem)</div>
+      <div class="text-xl">XL Text (1.25rem)</div>
+      <div class="text-lg">LG Text (1.125rem)</div>
+      <div class="text-base">Base Text (1rem)</div>
+      <div class="text-sm">SM Text (0.875rem)</div>
+      <div class="text-xs">XS Text (0.75rem)</div>
+    </div>
+  </section>
+
+  <!-- Buttons -->
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Buttons</h2>
+    <div class="flex gap-4">
+      <button class="btn btn--primary">Primary Button</button>
+      <button class="btn btn--primary" disabled>Disabled Button</button>
+    </div>
+  </section>
+
+  <!-- Form Elements -->
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Form Elements</h2>
+    <div class="flex flex-col gap-4 max-w-md">
+      <input type="text" class="input" placeholder="Regular Input" />
+      <input type="text" class="input input--error" placeholder="Error Input" />
+      <textarea class="input" placeholder="Textarea Input"></textarea>
+    </div>
+  </section>
+
+  <!-- Flash Messages -->
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Flash Messages</h2>
+    <div class="flex flex-col gap-4 max-w-md">
+      <div class="flash flash--info">
+        <p class="font-semibold">Info Message</p>
+        <p>This is an informational message.</p>
+      </div>
+      <div class="flash flash--error">
+        <p class="font-semibold">Error Message</p>
+        <p>This is an error message.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table Example -->
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Table</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Header 1</th>
+          <th>Header 2</th>
+          <th>Header 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Content 1</td>
+          <td>Content 2</td>
+          <td>Content 3</td>
+        </tr>
+        <tr>
+          <td>Content 4</td>
+          <td>Content 5</td>
+          <td>Content 6</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Spacing Example -->
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Spacing Scale</h2>
+    <div class="flex flex-wrap gap-4">
+      <div class="p-1 bg-primary text-white">p-1</div>
+      <div class="p-2 bg-primary text-white">p-2</div>
+      <div class="p-4 bg-primary text-white">p-4</div>
+      <div class="p-6 bg-primary text-white">p-6</div>
+      <div class="p-8 bg-primary text-white">p-8</div>
+    </div>
+  </section>
+
+  <!-- Modal Example (Trigger) -->
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Modal</h2>
+    <button class="btn btn--primary" onclick="document.getElementById('demo-modal').style.display='block'">
+      Open Modal
+    </button>
+  </section>
+
+  <!-- Modal Component -->
+  <div id="demo-modal" class="modal" style="display: none;">
+    <div class="modal__overlay" onclick="document.getElementById('demo-modal').style.display='none'"></div>
+    <div class="modal__container">
+      <div class="modal__content">
+        <h3 class="text-lg font-semibold mb-4">Modal Title</h3>
+        <p class="mb-4">This is a sample modal content demonstrating the modal component.</p>
+        <button class="btn btn--primary" onclick="document.getElementById('demo-modal').style.display='none'">
+          Close Modal
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

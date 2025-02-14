@@ -1,0 +1,586 @@
+@use "sass:map";
+// Design tokens
+$tokens: (
+  // Brand Colors
+  colors: (
+      primary: #9655ff,
+      // roxo pixel
+      secondary: #fef5bc,
+      // amarelo led
+      neutral: #f7f7ff,
+      // branco new doc
+      dark: #000a0f,
+
+      // preto dark mode
+      // Extended palette
+      zinc: (
+          50: #fafafa,
+          100: #f4f4f5,
+          200: #e4e4e7,
+          300: #d4d4d8,
+          400: #a1a1aa,
+          500: #71717a,
+          600: #52525b,
+          700: #3f3f46,
+          800: #27272a,
+          900: #18181b,
+        ),
+
+      rose: (
+        50: #fff1f2,
+        400: #fb7185,
+        600: #e11d48,
+      ),
+
+      emerald: (
+        50: #ecfdf5,
+        800: #065f46,
+      ),
+    ),
+
+  // Spacing
+  spacing: (
+      0: 0,
+      1: 0.25rem,
+      // 4px
+      2: 0.5rem,
+      // 8px
+      3: 0.75rem,
+      // 12px
+      4: 1rem,
+      // 16px
+      5: 1.25rem,
+      // 20px
+      6: 1.5rem,
+      // 24px
+      8: 2rem,
+      // 32px
+      10: 2.5rem,
+      // 40px
+      11: 2.75rem,
+      // 44px
+      14: 3.5rem,
+      // 56px
+      16: 4rem,
+      // 64px
+    ),
+
+  // Typography
+  font-size: (
+      xs: 0.75rem,
+      // 12px
+      sm: 0.875rem,
+      // 14px
+      base: 1rem,
+      // 16px
+      lg: 1.125rem,
+      // 18px
+      xl: 1.25rem,
+      // 20px
+      "2xl": 1.5rem,
+      // 24px
+    ),
+
+  // Font Weight
+  font-weight: (
+      normal: 400,
+      medium: 500,
+      semibold: 600,
+      bold: 700,
+    ),
+
+  // Border Radius
+  radius: (
+      none: 0,
+      sm: 0.125rem,
+      // 2px
+      default: 0.25rem,
+      // 4px
+      md: 0.375rem,
+      // 6px
+      lg: 0.5rem,
+      // 8px
+      xl: 0.75rem,
+      // 12px
+      "2xl": 1rem,
+      // 16px
+    ),
+
+  // Breakpoints
+  breakpoints: (
+      sm: 640px,
+      md: 768px,
+      lg: 1024px,
+      xl: 1280px,
+      "2xl": 1536px,
+    )
+);
+
+// Utility Functions
+@function color($key, $shade: null) {
+  @if $shade {
+    @return map.get(map.get(map.get($tokens, colors), $key), $shade);
+  }
+  @return map.get(map.get($tokens, colors), $key);
+}
+
+@function spacing($key) {
+  @return map.get(map.get($tokens, spacing), $key);
+}
+
+@function font-size($key) {
+  @return map.get(map.get($tokens, font-size), $key);
+}
+
+@function radius($key) {
+  @return map.get(map.get($tokens, radius), $key);
+}
+
+// Mixins
+@mixin flex(
+  $direction: row,
+  $justify: flex-start,
+  $align: stretch,
+  $wrap: nowrap
+) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+@mixin position(
+  $position,
+  $top: null,
+  $right: null,
+  $bottom: null,
+  $left: null
+) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+// Core Component Classes
+.btn {
+  @include flex(row, center, center);
+  padding: spacing(2) spacing(3);
+  border-radius: radius(lg);
+  font-size: font-size(sm);
+  font-weight: map.get(map.get($tokens, font-weight), semibold);
+  line-height: 1.5;
+  transition: all 0.2s ease-in-out;
+
+  &--primary {
+    background-color: color(primary);
+    color: white;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:active {
+      opacity: 0.8;
+    }
+  }
+}
+
+.input {
+  width: 100%;
+  padding: spacing(2);
+  border: 1px solid color(zinc, 300);
+  border-radius: radius(lg);
+  font-size: font-size(sm);
+  line-height: 1.5;
+
+  &:focus {
+    outline: none;
+    border-color: color(primary);
+  }
+
+  &--error {
+    border-color: color(rose, 400);
+  }
+}
+
+.modal {
+  @include position(fixed, 0, 0, 0, 0);
+  z-index: 50;
+
+  &__overlay {
+    @include position(fixed, 0, 0, 0, 0);
+    background-color: rgba(color(zinc, 50), 0.9);
+  }
+
+  &__container {
+    @include flex(column, center, center);
+    min-height: 100vh;
+    padding: spacing(4);
+  }
+
+  &__content {
+    background-color: white;
+    border-radius: radius(2xl);
+    padding: spacing(14);
+    width: 100%;
+    max-width: 48rem;
+    position: relative;
+  }
+}
+
+.table {
+  width: 100%;
+  margin-top: spacing(11);
+
+  th {
+    padding-bottom: spacing(4);
+    padding-right: spacing(6);
+    text-align: left;
+    font-weight: normal;
+    color: color(zinc, 500);
+    font-size: font-size(sm);
+  }
+
+  td {
+    padding: spacing(4) spacing(6) spacing(4) 0;
+    border-top: 1px solid color(zinc, 100);
+  }
+
+  tr:hover {
+    background-color: color(zinc, 50);
+  }
+}
+
+.flash {
+  @include position(fixed, spacing(2), spacing(2));
+  z-index: 50;
+  width: 20rem;
+  padding: spacing(3);
+  border-radius: radius(lg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  @media (min-width: map.get(map.get($tokens, breakpoints), sm)) {
+    width: 24rem;
+  }
+
+  &--info {
+    background-color: color(emerald, 50);
+    color: color(emerald, 800);
+  }
+
+  &--error {
+    background-color: color(rose, 50);
+    color: color(rose, 600);
+  }
+}
+
+// Utility Classes
+.flex {
+  display: flex;
+
+  &-col {
+    flex-direction: column;
+  }
+  &-row {
+    flex-direction: row;
+  }
+  &-wrap {
+    flex-wrap: wrap;
+  }
+
+  &-items {
+    &-center {
+      align-items: center;
+    }
+    &-start {
+      align-items: flex-start;
+    }
+    &-end {
+      align-items: flex-end;
+    }
+  }
+
+  &-justify {
+    &-center {
+      justify-content: center;
+    }
+    &-between {
+      justify-content: space-between;
+    }
+    &-end {
+      justify-content: flex-end;
+    }
+  }
+}
+
+// Text utilities
+@each $name, $size in map.get($tokens, font-size) {
+  .text-#{$name} {
+    font-size: $size;
+  }
+}
+
+@each $name, $weight in map.get($tokens, font-weight) {
+  .font-#{$name} {
+    font-weight: $weight;
+  }
+}
+
+// Spacing utilities
+@each $name, $size in map.get($tokens, spacing) {
+  .m-#{$name} {
+    margin: $size;
+  }
+  .mt-#{$name} {
+    margin-top: $size;
+  }
+  .mr-#{$name} {
+    margin-right: $size;
+  }
+  .mb-#{$name} {
+    margin-bottom: $size;
+  }
+  .ml-#{$name} {
+    margin-left: $size;
+  }
+  .mx-#{$name} {
+    margin-left: $size;
+    margin-right: $size;
+  }
+  .my-#{$name} {
+    margin-top: $size;
+    margin-bottom: $size;
+  }
+
+  .p-#{$name} {
+    padding: $size;
+  }
+  .pt-#{$name} {
+    padding-top: $size;
+  }
+  .pr-#{$name} {
+    padding-right: $size;
+  }
+  .pb-#{$name} {
+    padding-bottom: $size;
+  }
+  .pl-#{$name} {
+    padding-left: $size;
+  }
+  .px-#{$name} {
+    padding-left: $size;
+    padding-right: $size;
+  }
+  .py-#{$name} {
+    padding-top: $size;
+    padding-bottom: $size;
+  }
+}
+
+// Responsive utilities using a different approach
+@mixin responsive-utilities {
+  @each $breakpoint, $width in map.get($tokens, breakpoints) {
+    @media (min-width: $width) {
+      // Using class attribute selector to avoid SASS interpolation issues
+      [class*="#{$breakpoint}-hidden"] {
+        display: none;
+      }
+
+      [class*="#{$breakpoint}-block"] {
+        display: block;
+      }
+
+      [class*="#{$breakpoint}-flex"] {
+        display: flex;
+      }
+    }
+  }
+}
+
+// Alternative approach using custom properties for breakpoints
+:root {
+  // Define breakpoints as CSS custom properties
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+// Media query mixins
+@mixin sm {
+  @media (min-width: 640px) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: 1280px) {
+    @content;
+  }
+}
+
+@mixin xxl {
+  @media (min-width: 1536px) {
+    @content;
+  }
+}
+
+// Usage example:
+.responsive-component {
+  // Mobile first
+  width: 100%;
+
+  @include sm {
+    width: 50%;
+  }
+
+  @include lg {
+    width: 33.333%;
+  }
+}
+
+// Helper classes for responsive display
+.hidden-sm {
+  @include sm {
+    display: none;
+  }
+}
+
+.hidden-md {
+  @include md {
+    display: none;
+  }
+}
+
+.hidden-lg {
+  @include lg {
+    display: none;
+  }
+}
+
+.hidden-xl {
+  @include xl {
+    display: none;
+  }
+}
+
+.hidden-2xl {
+  @include xxl {
+    display: none;
+  }
+}
+
+// Block display classes
+.block-sm {
+  @include sm {
+    display: block;
+  }
+}
+
+.block-md {
+  @include md {
+    display: block;
+  }
+}
+
+.block-lg {
+  @include lg {
+    display: block;
+  }
+}
+
+.block-xl {
+  @include xl {
+    display: block;
+  }
+}
+
+.block-2xl {
+  @include xxl {
+    display: block;
+  }
+}
+
+// Flex display classes
+.flex-sm {
+  @include sm {
+    display: flex;
+  }
+}
+
+.flex-md {
+  @include md {
+    display: flex;
+  }
+}
+
+.flex-lg {
+  @include lg {
+    display: flex;
+  }
+}
+
+.flex-xl {
+  @include xl {
+    display: flex;
+  }
+}
+
+.flex-2xl {
+  @include xxl {
+    display: flex;
+  }
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply design system */
+:root {
+  /* Brand Colors */
+  --color-primary: #9655ff;
+  --color-secondary: #fef5bc;
+  --color-neutral: #f7f7ff;
+  --color-dark: #000a0f;
+
+  /* Extended Colors */
+  --color-zinc-50: #fafafa;
+  --color-zinc-100: #f4f4f5;
+  --color-zinc-500: #71717a;
+  --color-rose-50: #fff1f2;
+  --color-rose-400: #fb7185;
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-800: #065f46;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: var(--color-dark);
+  background-color: var(--color-neutral);
+  line-height: 1.5;
+}
